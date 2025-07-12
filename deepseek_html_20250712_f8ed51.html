@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEasy Kenya - Online Store</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Global Styles */
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            border-radius: 4px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            color: #e74c3c;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            color: #e74c3c;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-icon, .admin-icon {
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .cart-count, .admin-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .admin-badge {
+            background-color: #27ae60;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #3498db;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            color: #2c3e50;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .product-price::before {
+            content: "KES ";
+        }
+
+        .add-to-cart {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #2980b9;
+        }
+
+        /* Admin Controls */
+        .admin-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .admin-edit, .admin-delete {
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .admin-edit:hover {
+            background-color: #3498db;
+        }
+
+        .admin-delete:hover {
+            background-color: #e74c3c;
+        }
+
+        .add-product-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 auto 30px;
+            display: block;
+        }
+
+        /* Image Upload Styles */
+        .image-upload-container {
+            margin-bottom: 20px;
+        }
+
+        .image-upload-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .image-upload-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Admin Login Modal */
+        .admin-login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .admin-login-content {
+            background-color: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .admin-login-content h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .admin-login-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Add/Edit Product Modal */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .product-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Logo Settings Modal */
+        .logo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .logo-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .cart-items {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-items th {
+            text-align: left;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-items td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            background-color: #f5f5f5;
+            border: none;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 3px;
+        }
+
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cart-total::before {
+            content: "KES ";
+        }
+
+        .checkout-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Checkout Form */
+        .checkout-form {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .checkout-form h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        /* M-Pesa Payment Instructions */
+        .mpesa-instructions {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #00a650;
+        }
+
+        .mpesa-instructions h3 {
+            color: #00a650;
+            margin-bottom: 10px;
+        }
+
+        .mpesa-instructions ol {
+            padding-left: 20px;
+        }
+
+        .mpesa-instructions li {
+            margin-bottom: 10px;
+        }
+
+        /* Order Confirmation */
+        .order-confirmation {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .order-confirmation h2 {
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+
+        .order-confirmation p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .continue-shopping {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-menu {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-menu li {
+                margin-left: 0;
+            }
+
+            .header-right {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-content, .product-modal-content, .logo-modal-content {
+                width: 95%;
+            }
+
+            .cart-items th, .cart-items td {
+                padding: 8px 5px;
+                font-size: 14px;
+            }
+
+            .product-title {
+                font-size: 16px;
+            }
+
+            .product-price {
+                font-size: 18px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+            }
+
+            .nav-menu li {
+                margin: 5px;
+            }
+
+            .admin-controls {
+                top: 5px;
+                right: 5px;
+            }
+
+            .admin-edit, .admin-delete {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <img id="logoImage" class="logo-img" src="" alt="ShopEasy Logo">
+                <div class="logo-text">Shop<span>Easy</span> Kenya</div>
+            </div>
+            <ul class="nav-menu">
+                <li><a class="nav-link" data-section="home">Home</a></li>
+                <li><a class="nav-link" data-section="categories">Categories</a></li>
+                <li><a class="nav-link" data-section="products">Products</a></li>
+                <li><a class="nav-link" data-section="about">About Us</a></li>
+                <li><a class="nav-link" data-section="contact">Contact</a></li>
+            </ul>
+            <div class="header-right">
+                <div class="admin-icon" id="adminIcon">
+                    🔑
+                    <span class="admin-badge" id="adminBadge" style="display: none;">A</span>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Welcome to ShopEasy Kenya</h1>
+            <p>Discover amazing products at unbeatable prices. Shop now and enjoy fast delivery across Kenya.</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div id="addProductContainer" style="display: none;">
+                <button class="add-product-btn" id="addProductBtn">+ Add New Product</button>
+            </div>
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be added dynamically with JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Login Modal -->
+    <div class="admin-login-modal" id="adminLoginModal">
+        <div class="admin-login-content">
+            <button class="admin-login-close" id="adminLoginClose">&times;</button>
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <button class="product-modal-close" id="productModalClose">&times;</button>
+            <h2 id="productModalTitle">Add New Product</h2>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price (KES)</label>
+                    <input type="number" id="productPrice" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory" required>
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="home">Home & Living</option>
+                        <option value="beauty">Beauty</option>
+                    </select>
+                </div>
+                <div class="image-upload-container">
+                    <label class="image-upload-label">Product Image</label>
+                    <input type="file" id="productImageUpload" accept="image/*">
+                    <img id="productImagePreview" class="image-upload-preview" src="#" alt="Product Preview">
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="productFormSubmit">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Logo Settings Modal -->
+    <div class="logo-modal" id="logoModal">
+        <div class="logo-modal-content">
+            <button class="logo-modal-close" id="logoModalClose">&times;</button>
+            <h2>Update Logo</h2>
+            <form id="logoForm">
+                <div class="image-upload-container">
+                    <label class="image-upload-label">Upload New Logo</label>
+                    <input type="file" id="logoUpload" accept="image/*">
+                    <img id="logoPreview" class="image-upload-preview" src="#" alt="Logo Preview">
+                </div>
+                <button type="submit" class="submit-btn">Update Logo</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Your Shopping Cart</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="cart-items" id="cartItems">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartBody">
+                        <!-- Cart items will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="cart-total">
+                    Total: <span id="cartTotal">0.00</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <div class="checkout-form" id="checkoutForm">
+        <h2>Checkout</h2>
+        <form id="checkoutFormElement">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" rows="3" required></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="county">County</label>
+                    <select id="county" required>
+                        <option value="">Select County</option>
+                        <option value="nairobi">Nairobi</option>
+                        <option value="mombasa">Mombasa</option>
+                        <option value="kisumu">Kisumu</option>
+                        <option value="nakuru">Nakuru</option>
+                        <option value="eldoret">Eldoret</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="payment">Payment Method</label>
+                <select id="payment" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="mpesa">M-Pesa</option>
+                    <option value="credit">Credit Card</option>
+                    <option value="bank">Bank Transfer</option>
+                    <option value="cash">Cash on Delivery</option>
+                </select>
+            </div>
+            
+            <div class="mpesa-instructions" id="mpesaInstructions">
+                <h3>M-Pesa Payment Instructions</h3>
+                <ol>
+                    <li>Go to M-Pesa on your phone</li>
+                    <li>Select Lipa na M-Pesa</li>
+                    <li>Select Pay Bill</li>
+                    <li>Enter Business Number: <strong>222111</strong> (Family Bank)</li>
+                    <li>Enter Account Number: <strong>023000046930</strong></li>
+                    <li>Enter the amount: KES <span id="mpesaAmount">0.00</span></li>
+                    <li>Enter your M-Pesa PIN and confirm</li>
+                </ol>
+            </div>
+            
+            <button type="submit" class="submit-btn">Place Order</button>
+        </form>
+    </div>
+
+    <!-- Order Confirmation -->
+    <div class="order-confirmation" id="orderConfirmation">
+        <h2>Thank You for Your Order!</h2>
+        <p>Your order has been placed successfully.</p>
+        <p>An SMS confirmation has been sent to your phone number.</p>
+        <p>Order ID: <span id="orderId"></span></p>
+        <button class="continue-shopping" id="continueShopping">Continue Shopping</button>
+    </div>
+
+    <script>
+        // Product Data - Prices in Kenyan Shillings (KES)
+        let products = [
+            {
+                id: 1,
+                name: "Wireless Headphones",
+                price: 12999,
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=500&q=60",
+                description: "High-quality wireless headphones with noise cancellation.",
+                category: "electronics"
+            },
+            {
+                id: 2,
+                name: "Smart Watch",
+                price: 24999,
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=500&q=60",
+                description: "Track your fitness and stay connected with this smart watch.",
+                category: "electronics"
+            }
+        ];
+
+        // Shopping Cart
+        let cart = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+        let isAdminLoggedIn = false;
+        let editingProductId = null;
+        let logoImage = null;
+
+        // DOM Elements
+        const productGrid = document.getElementById('productGrid');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCountElement = document.getElementById('cartCount');
+        const cartModal = document.getElementById('cartModal');
+        const closeModal = document.getElementById('closeModal');
+        const cartBody = document.getElementById('cartBody');
+        const cartTotalElement = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const checkoutFormElement = document.getElementById('checkoutFormElement');
+        const orderConfirmation = document.getElementById('orderConfirmation');
+        const orderIdElement = document.getElementById('orderId');
+        const continueShopping = document.getElementById('continueShopping');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const adminIcon = document.getElementById('adminIcon');
+        const adminBadge = document.getElementById('adminBadge');
+        const adminLoginModal = document.getElementById('adminLoginModal');
+        const adminLoginClose = document.getElementById('adminLoginClose');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const productModal = document.getElementById('productModal');
+        const productModalClose = document.getElementById('productModalClose');
+        const productModalTitle = document.getElementById('productModalTitle');
+        const productForm = document.getElementById('productForm');
+        const productFormSubmit = document.getElementById('productFormSubmit');
+        const productIdInput = document.getElementById('productId');
+        const productNameInput = document.getElementById('productName');
+        const productPriceInput = document.getElementById('productPrice');
+        const productCategoryInput = document.getElementById('productCategory');
+        const productImageUpload = document.getElementById('productImageUpload');
+        const productImagePreview = document.getElementById('productImagePreview');
+        const productDescriptionInput = document.getElementById('productDescription');
+        const mpesaInstructions = document.getElementById('mpesaInstructions');
+        const mpesaAmount = document.getElementById('mpesaAmount');
+        const paymentMethod = document.getElementById('payment');
+        const addProductBtn = document.getElementById('addProductBtn');
+        const addProductContainer = document.getElementById('addProductContainer');
+        const logoImageElement = document.getElementById('logoImage');
+        const logoModal = document.getElementById('logoModal');
+        const logoModalClose = document.getElementById('logoModalClose');
+        const logoForm = document.getElementById('logoForm');
+        const logoUpload = document.getElementById('logoUpload');
+        const logoPreview = document.getElementById('logoPreview');
+
+        // Format KES currency
+        function formatKES(amount) {
+            return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
+        // Display Products
+        function displayProducts() {
+            productGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                let adminControls = '';
+                if (isAdminLoggedIn) {
+                    adminControls = `
+                        <div class="admin-controls">
+                            <button class="admin-edit" data-id="${product.id}">✏️</button>
+                            <button class="admin-delete" data-id="${product.id}">🗑️</button>
+                        </div>
+                    `;
+                }
+                
+                productCard.innerHTML = `
+                    ${adminControls}
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">${formatKES(product.price)}</p>
+                        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+                    </div>
+                `;
+                productGrid.appendChild(productCard);
+            });
+
+            // Add event listeners to Add to Cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+
+            // Add event listeners to admin controls if logged in
+            if (isAdminLoggedIn) {
+                document.querySelectorAll('.admin-edit').forEach(button => {
+                    button.addEventListener('click', editProduct);
+                });
+                document.querySelectorAll('.admin-delete').forEach(button => {
+                    button.addEventListener('click', deleteProduct);
+                });
+            }
+        }
+
+        // Add to Cart
+        function addToCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            // Check if product is already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showCartNotification();
+        }
+
+        // Show cart notification
+        function showCartNotification() {
+            cartIcon.classList.add('shake');
+            setTimeout(() => {
+                cartIcon.classList.remove('shake');
+            }, 500);
+        }
+
+        // Update Cart
+        function updateCart() {
+            // Update cart count
+            cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = cartCount;
+            
+            // Update cart total
+            cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            cartTotalElement.textContent = formatKES(cartTotal);
+            mpesaAmount.textContent = formatKES(cartTotal);
+            
+            // Update cart items
+            cartBody.innerHTML = '';
+            cart.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                            <span>${item.name}</span>
+                        </div>
+                    </td>
+                    <td>KES ${formatKES(item.price)}</td>
+                    <td>
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        </div>
+                    </td>
+                    <td>KES ${formatKES(item.price * item.quantity)}</td>
+                    <td><button class="remove-btn" data-id="${item.id}">Remove</button></td>
+                `;
+                cartBody.appendChild(row);
+            });
+            
+            // Add event listeners to quantity controls
+            document.querySelectorAll('.quantity-btn').forEach(button => {
+                button.addEventListener('click', updateQuantity);
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', updateQuantity);
+            });
+            
+            document.querySelectorAll('.remove-btn').forEach(button => {
+                button.addEventListener('click', removeItem);
+            });
+        }
+
+        // Update Quantity
+        function updateQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            
+            if (e.target.classList.contains('minus')) {
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                }
+            } else if (e.target.classList.contains('plus')) {
+                item.quantity += 1;
+            } else if (e.target.classList.contains('quantity-input')) {
+                const newQuantity = parseInt(e.target.value);
+                if (!isNaN(newQuantity) && newQuantity >= 1) {
+                    item.quantity = newQuantity;
+                }
+            }
+            
+            updateCart();
+        }
+
+        // Remove Item
+        function removeItem(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Generate Order ID
+        function generateOrderId() {
+            return 'ORD-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Admin Login
+        function adminLogin(username, password) {
+            if (username === 'shopeasy.ke' && password === 'shopeasy.ke') {
+                isAdminLoggedIn = true;
+                adminBadge.style.display = 'flex';
+                addProductContainer.style.display = 'block';
+                alert('Admin login successful!');
+                adminLoginModal.style.display = 'none';
+                displayProducts();
+                return true;
+            } else {
+                alert('Invalid admin credentials');
+                return false;
+            }
+        }
+
+        // Admin Logout
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            adminBadge.style.display = 'none';
+            addProductContainer.style.display = 'none';
+            displayProducts();
+        }
+
+        // Add New Product
+        function addProduct(product) {
+            // Generate new ID
+            const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+            product.id = newId;
+            products.push(product);
+            displayProducts();
+        }
+
+        // Edit Product
+        function editProduct(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            editingProductId = productId;
+            productModalTitle.textContent = 'Edit Product';
+            productFormSubmit.textContent = 'Update Product';
+            
+            // Fill form with product data
+            productIdInput.value = product.id;
+            productNameInput.value = product.name;
+            productPriceInput.value = product.price;
+            productCategoryInput.value = product.category;
+            productImagePreview.src = product.image;
+            productImagePreview.style.display = 'block';
+            productDescriptionInput.value = product.description;
+            
+            productModal.style.display = 'flex';
+        }
+
+        // Update Product
+        function updateProduct(product) {
+            const index = products.findIndex(p => p.id === product.id);
+            if (index !== -1) {
+                products[index] = product;
+                displayProducts();
+            }
+        }
+
+        // Delete Product
+        function deleteProduct(e) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                const productId = parseInt(e.target.getAttribute('data-id'));
+                products = products.filter(p => p.id !== productId);
+                displayProducts();
+            }
+        }
+
+        // Update Logo
+        function updateLogo(imageData) {
+            logoImage = imageData;
+            logoImageElement.src = imageData;
+            localStorage.setItem('shopLogo', imageData);
+        }
+
+        // Toggle M-Pesa instructions
+        function toggleMpesaInstructions() {
+            if (paymentMethod.value === 'mpesa') {
+                mpesaInstructions.style.display = 'block';
+            } else {
+                mpesaInstructions.style.display = 'none';
+            }
+        }
+
+        // Event Listeners
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+            checkoutForm.style.display = 'block';
+            scrollToSection('checkoutForm');
+        });
+
+        checkoutFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real app, you would send this data to your server
+            const orderId = generateOrderId();
+            orderIdElement.textContent = orderId;
+            
+            checkoutForm.style.display = 'none';
+            orderConfirmation.style.display = 'block';
+            scrollToSection('orderConfirmation');
+            
+            // Clear the cart
+            cart = [];
+            updateCart();
+        });
+
+        continueShopping.addEventListener('click', () => {
+            orderConfirmation.style.display = 'none';
+            scrollToSection('home');
+        });
+
+        // Navigation menu click handlers
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.getAttribute('data-section');
+                scrollToSection(section);
+            });
+        });
+
+        // Admin icon click
+        adminIcon.addEventListener('click', () => {
+            if (isAdminLoggedIn) {
+                // Show admin options
+                const adminOptions = confirm('Admin Options:\n\n1. Add Product\n2. Change Logo\n\nClick OK for Add Product or Cancel for Change Logo');
+                if (adminOptions) {
+                    // Add Product
+                    productModalTitle.textContent = 'Add New Product';
+                    productFormSubmit.textContent = 'Add Product';
+                    productIdInput.value = '';
+                    productForm.reset();
+                    productImagePreview.style.display = 'none';
+                    editingProductId = null;
+                    productModal.style.display = 'flex';
+                } else {
+                    // Change Logo
+                    logoModal.style.display = 'flex';
+                }
+            } else {
+                adminLoginModal.style.display = 'flex';
+            }
+        });
+
+        // Admin login close
+        adminLoginClose.addEventListener('click', () => {
+            adminLoginModal.style.display = 'none';
+        });
+
+        // Admin login form submission
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            adminLogin(username, password);
+        });
+
+        // Product modal close
+        productModalClose.addEventListener('click', () => {
+            productModal.style.display = 'none';
+        });
+
+        // Product image upload preview
+        productImageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    productImagePreview.src = event.target.result;
+                    productImagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Product form submission
+        productForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const product = {
+                id: parseInt(productIdInput.value),
+                name: productNameInput.value,
+                price: parseFloat(productPriceInput.value),
+                category: productCategoryInput.value,
+                image: productImagePreview.src,
+                description: productDescriptionInput.value
+            };
+            
+            if (editingProductId) {
+                updateProduct(product);
+            } else {
+                addProduct(product);
+            }
+            
+            productModal.style.display = 'none';
+            productForm.reset();
+            productImagePreview.style.display = 'none';
+            productImageUpload.value = '';
+            editingProductId = null;
+        });
+
+        // Logo modal close
+        logoModalClose.addEventListener('click', () => {
+            logoModal.style.display = 'none';
+        });
+
+        // Logo upload preview
+        logoUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    logoPreview.src = event.target.result;
+                    logoPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Logo form submission
+        logoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (logoPreview.src && logoPreview.src !== '#') {
+                updateLogo(logoPreview.src);
+                logoModal.style.display = 'none';
+                logoForm.reset();
+                logoPreview.style.display = 'none';
+                logoUpload.value = '';
+            } else {
+                alert('Please upload a logo image');
+            }
+        });
+
+        // Payment method change
+        paymentMethod.addEventListener('change', toggleMpesaInstructions);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+            if (e.target === adminLoginModal) {
+                adminLoginModal.style.display = 'none';
+            }
+            if (e.target === productModal) {
+                productModal.style.display = 'none';
+            }
+            if (e.target === logoModal) {
+                logoModal.style.display = 'none';
+            }
+        });
+
+        // Initialize the app
+        // Load logo from localStorage if available
+        const savedLogo = localStorage.getItem('shopLogo');
+        if (savedLogo) {
+            logoImageElement.src = savedLogo;
+        }
+
+        displayProducts();
+        updateCart();
+        toggleMpesaInstructions();
+    </script>
+</body>
+</html>
